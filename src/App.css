@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'Luckiest Guy';
+  src: url('./lucky-font/LuckiestGuy-Regular.woff2') format('woff2'),
+      url('./lucky-font/LuckiestGuy-Regular.woff') format('woff'),
+      url('./lucky-font/LuckiestGuy-Regular.svg#LuckiestGuy-Regular') format('svg'),
+      url('./lucky-font/LuckiestGuy-Regular.ttf')  format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+    background-color: #f2f5f8;
+    font-family: 'Luckiest Guy'
+}
+
+   /* Video */
+.Video {
+
+  z-index: -10;
+  min-height: 100%;
+  
+}
+
+.main {
+  margin-bottom: 20vh;
+}

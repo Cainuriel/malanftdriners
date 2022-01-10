@@ -1,0 +1,16 @@
+{
+    "name": "Bot Malandriner",
+    "description": "Mensaje del único usuario de telegram que está pendiente de todo",
+    "image": "http://localhost:3000/img/chupitoNFT.png",
+    "video": "",
+    "attributes": [
+    {
+    "trait_type": "rarity",
+    "value": "Unico"
+    },{
+        "trait_type": "serial_number",
+        "value": 1,
+        "max_value": 1,
+        "display_type": "number"
+        }]
+}

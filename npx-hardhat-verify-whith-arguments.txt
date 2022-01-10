@@ -1,0 +1,2 @@
+npx hardhat verify --constructor-args arguments.js 0x352AAe24d4B4bac74bd0E8e11c419C8E7a329a58
+https://nft-show.netlify.app/img/
