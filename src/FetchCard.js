@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import Swal from 'sweetalert2';
 import { ethers } from 'ethers';
-import NFT from './artifacts/contracts/FishervsPirate.sol/FishervsPirate.json';
+import NFT from './artifacts/contracts/FishervsPirate.sol/BNBCollection.json';
 import getToken from './helpers/getToken';
 
 const FetchCard = (props) => { // @props: La id del NFT
@@ -10,14 +10,13 @@ const FetchCard = (props) => { // @props: La id del NFT
     const [object, setObject] = useState({
         name: 'name',
         description: 'description',
-        image: 'image',
-        video: 'video',
         rarity: 'rarity',
-        number: 'number',
-        total: 'total',
+        filetype: 'filetype',
+        img: 'image',
+        video: 'video',
       });
-      // 0x4F1353Efc9EC1e5976327532fED8E8D89B1359Ea FishervsPirate test 2
-      const nftContract = "0x7C6DeAdde7ABc337F7E5272d1CdF1ce04E0A3603"; // FishervsPirate hardhat deploy
+      // 0x7C6DeAdde7ABc337F7E5272d1CdF1ce04E0A3603 contrato fisher test 
+      const nftContract = "0x8e0F9405863fbb351CbC3e1487853c8c56Cf5822"; // proyecto bnbmarketplace
       // funcion para capturar la URI de un NFT
       async function fetchToken(idToken)  {
 
@@ -25,12 +24,13 @@ const FetchCard = (props) => { // @props: La id del NFT
         const signer = provider.getSigner();
         const contract = new ethers.Contract(nftContract, NFT.abi, signer);
 
-        console.log('idtoken ', idToken._hex);
+        //console.log('idtoken ', idToken._hex);
 
           try {
 
             const tokenUri = await contract.tokenURI(idToken);
-             updateToken(tokenUri);
+            console.log('que pasa con el tokenuri', tokenUri);
+             updateToken(`https://ipfs.infura.io/ipfs/${tokenUri}?clear`);
 
           } catch (err) {
             let mensajeError = err.message;
@@ -53,14 +53,12 @@ const FetchCard = (props) => { // @props: La id del NFT
                   console.log('este es el metadata del token', newToken);
                     setObject(
                         {
-                            name: newToken.name,
-                            description: newToken.description,
-                            image: newToken.image,
-                            video: newToken.video,
-                            rarity: newToken.attributes[0].value,
-                            number: newToken.attributes[1].value,
-                            total: newToken.attributes[1].max_value,
-
+                          name: newToken.properties.name.description,
+                          description: newToken.properties.description.description,
+                          rarity: newToken.properties.rarity.description,
+                          filetype: newToken.properties.filetype.description,
+                          img: newToken.properties.image.description,
+                          video: newToken.properties.video.description,
                         });
                 ;}
             )
@@ -68,24 +66,23 @@ const FetchCard = (props) => { // @props: La id del NFT
 
 
     useEffect(() => {
-
+      console.log('props ', props.idToken);
         fetchToken(props.idToken);
     }, []);
 
     return (
 
         <div key={object.name} className="col-lg-6 text-center text-lg-start py-2">
-                  <small>{parseInt(props.idToken._hex, 16)}</small>
+                  {/* <small>{parseInt(props.idToken._hex, 16)}</small> */}
+                  <small>{parseInt(props.idToken)}</small>
             <div className="card mb-3" style={{maxWidth: "750px"}}>
                 <div className="row g-0">
                     <div className="col-md-8">
-                    {object.image !== "image" &&
-                    <img src={object.image} className="img-fluid rounded-start"/>
-                    }
-                    {object.video !== "video" &&
-                 
+                    {object.filetype === "Imagen" ?
+                    <img src={`https://ipfs.infura.io/ipfs/${object.img}`} className="img-fluid rounded-start"/>
+                    : 
                     <video width="400" autoPlay loop muted>
-                      <source src={object.video} type="video/mp4"/>
+                      <source src={`https://ipfs.infura.io/ipfs/${object.video}`} type="video/mp4"/>
                     </video>
                     }
                     </div>
@@ -94,7 +91,6 @@ const FetchCard = (props) => { // @props: La id del NFT
                         <h5 className="card-title">{object.name}</h5>
                         <p className="card-text">{object.description}</p>
                         <p className="card-text"><strong>Rareza: </strong><small className="text-muted">{object.rarity}</small></p>
-                        <p className="card-text"><strong>Serie: </strong><small className="text-muted">{object.number} of {object.total}</small></p>
                         </div>
                     </div>
                 </div>
