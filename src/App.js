@@ -4,7 +4,7 @@ import './App.css';
 import Swal from 'sweetalert2';
 import VideoPlayer from "react-background-video-player";
 import { ethers } from 'ethers';
-import NFT from './artifacts/contracts/FishervsPirate.sol/BNBCollection.json';
+import NFT from './artifacts/contracts/BNBCollection.sol/BNBCollection.json';
 //import Presale from './artifacts/contracts/Presale.sol/Presale.json';
 import FetchCard from './FetchCard';
 
@@ -13,9 +13,8 @@ import FetchCard from './FetchCard';
 function App() {
  
   const BINANCETESTNET = 'bnbt';
-      // 0x7C6DeAdde7ABc337F7E5272d1CdF1ce04E0A3603 // tipo fisher test 
-  const nftContract = "0x8e0F9405863fbb351CbC3e1487853c8c56Cf5822"; // FishervsPirate hardhat deploy
-  const [balance, setBalance] = useState([1,2,3,4]);
+  const nftContract = "0xEb60E7F3a888De4A7fE86d8467E69e272c200059"; // bnbmarketplace
+  const [balance, setBalance] = useState([]);
   const [network, setNetwork] = useState('no-net');
   //const [idToken, setIdToken] = useState(0);
   //const ownerNFTs = '0x322d9e3F049a845e9C8ED089B2Bdf8F33c65a08F';
@@ -127,7 +126,7 @@ function App() {
             let subint = accountConnection.substr(0,4);
             let subfinal = accountConnection.substr(-4,4);
             document.querySelector('#intro').innerHTML ='Conectado con la cuenta: ' + subint + '...' + subfinal;
-          //  await checkingNFTs(accountConnection);
+            await checkingNFTs(accountConnection);
             let element = document.querySelector("#formBuy");
             element.classList.remove("d-none");
                 
@@ -135,39 +134,38 @@ function App() {
 
 
      // comprobacion de NFTs
-  // async function checkingNFTs(account) { 
+  async function checkingNFTs(account) { 
 
+     const provider = await new ethers.providers.Web3Provider(window.ethereum);
+     const signer = provider.getSigner();
+     const contract = await new ethers.Contract(nftContract, NFT.abi, signer);
 
-  //    const provider = await new ethers.providers.Web3Provider(window.ethereum);
-  //    const signer = provider.getSigner();
-  //    const contract = await new ethers.Contract(nftContract, NFT.abi, signer);
-
-  //    try {
-  //      const contractUserBalance = await contract.tokensOfOwner(account);
-  //       console.log('contract user balance', contractUserBalance);
-  //         // comprobamos si el usuario tiene avatares.
-  //         if(contractUserBalance.length > 0) {
-  //           document.querySelector('#tokens').innerHTML ='Precio: 0.1 BNBs';
-  //           let newArray = contractUserBalance;
-  //           setBalance(newArray);
+     try {
+       const contractUserBalance = await contract.tokensOfOwner(account);
+        console.log('contract user balance', contractUserBalance);
+          // comprobamos si el usuario tiene avatares.
+          if(contractUserBalance.length > 0) {
+            document.querySelector('#tokens').innerHTML ='Precio: 0.3 BNBs';
+            let newArray = contractUserBalance;
+            setBalance(newArray);
             
-  //             }    else {
-  //               document.querySelector('#tokens').innerHTML ='Precio: 0.1 BNBs';
+              }    else {
+                document.querySelector('#tokens').innerHTML ='Precio: 0.3 BNBs';
 
-  //             }
+              }
 
-  //       } catch (err) {
-  //         let mensajeError = err.message;
-  //         Swal.fire({
-  //           title: 'Ooops!',
-  //           text: `${mensajeError}`,
-  //           icon: 'error',
-  //           confirmButtonText: 'Cerrar'
-  //         })
-  //         console.log("Error: ", err)
-  //       }
+        } catch (err) {
+          let mensajeError = err.message;
+          Swal.fire({
+            title: 'Ooops!',
+            text: `${mensajeError}`,
+            icon: 'error',
+            confirmButtonText: 'Cerrar'
+          })
+          console.log("Error: ", err)
+        }
 
-  // }
+  }
 
 
     // funcion que detecta los cambios de cuenta
@@ -194,7 +192,7 @@ function App() {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           const signer = provider.getSigner();
           const contract = new ethers.Contract(nftContract, NFT.abi, signer);
-          const bnbamount ='100000000000000000';
+          const bnbamount ='300000000000000000';
           try {
             const transaction = await contract.saleMintToken(account, {value: bnbamount});
             // event capture

@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import Swal from 'sweetalert2';
 import { ethers } from 'ethers';
-import NFT from './artifacts/contracts/FishervsPirate.sol/BNBCollection.json';
+import NFT from './artifacts/contracts/BNBCollection.sol/BNBCollection.json';
 import getToken from './helpers/getToken';
 
 const FetchCard = (props) => { // @props: La id del NFT
@@ -15,8 +15,7 @@ const FetchCard = (props) => { // @props: La id del NFT
         img: 'image',
         video: 'video',
       });
-      // 0x7C6DeAdde7ABc337F7E5272d1CdF1ce04E0A3603 contrato fisher test 
-      const nftContract = "0x8e0F9405863fbb351CbC3e1487853c8c56Cf5822"; // proyecto bnbmarketplace
+      const nftContract = "0xEb60E7F3a888De4A7fE86d8467E69e272c200059"; // proyecto bnbmarketplace
       // funcion para capturar la URI de un NFT
       async function fetchToken(idToken)  {
 
@@ -73,8 +72,7 @@ const FetchCard = (props) => { // @props: La id del NFT
     return (
 
         <div key={object.name} className="col-lg-6 text-center text-lg-start py-2">
-                  {/* <small>{parseInt(props.idToken._hex, 16)}</small> */}
-                  <small>{parseInt(props.idToken)}</small>
+                  <small>{parseInt(props.idToken._hex, 16)}</small>
             <div className="card mb-3" style={{maxWidth: "750px"}}>
                 <div className="row g-0">
                     <div className="col-md-8">
