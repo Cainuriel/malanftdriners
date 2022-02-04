@@ -13,7 +13,7 @@ import FetchCard from './FetchCard';
 function App() {
  
   const BINANCETESTNET = 'bnbt';
-  const nftContract = "0x77f79534dcDA49872e2882eac90a669Ea85C3Ba3"; // bnbmarketplace
+  const nftContract = "0x21947a01C76542656EC895205E9f22FeEee2B467"; // bnbmarketplace
   const [balance, setBalance] = useState([]);
   const [network, setNetwork] = useState('no-net');
   const BNBPRICE ='100000000000000000';
