@@ -13,13 +13,10 @@ import FetchCard from './FetchCard';
 function App() {
  
   const BINANCETESTNET = 'bnbt';
-  const nftContract = "0xEb60E7F3a888De4A7fE86d8467E69e272c200059"; // bnbmarketplace
+  const nftContract = "0x77f79534dcDA49872e2882eac90a669Ea85C3Ba3"; // bnbmarketplace
   const [balance, setBalance] = useState([]);
   const [network, setNetwork] = useState('no-net');
-  //const [idToken, setIdToken] = useState(0);
-  //const ownerNFTs = '0x322d9e3F049a845e9C8ED089B2Bdf8F33c65a08F';
-  //const presaleContract = '0x78Af9A84f01144Ae14d0b62f56CC827e55D2f0F1'; // presale test beta 1
-  const BNBPRICE ='300000000000000000';
+  const BNBPRICE ='100000000000000000';
 
  // parallax effect
   const [offSetY, setOffSetY] = useState(0);
