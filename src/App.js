@@ -19,6 +19,7 @@ function App() {
   //const [idToken, setIdToken] = useState(0);
   //const ownerNFTs = '0x322d9e3F049a845e9C8ED089B2Bdf8F33c65a08F';
   //const presaleContract = '0x78Af9A84f01144Ae14d0b62f56CC827e55D2f0F1'; // presale test beta 1
+  const BNBPRICE ='300000000000000000';
 
  // parallax effect
   const [offSetY, setOffSetY] = useState(0);
@@ -192,9 +193,9 @@ function App() {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           const signer = provider.getSigner();
           const contract = new ethers.Contract(nftContract, NFT.abi, signer);
-          const bnbamount ='300000000000000000';
+          
           try {
-            const transaction = await contract.saleMintToken(account, {value: bnbamount});
+            const transaction = await contract.saleMintToken(account, {value: BNBPRICE});
             // event capture
             contract.on("TokenPurchase", (a, b, c, d) => {
               let amountBNB = ethers.utils.formatEther(c);
@@ -238,15 +239,17 @@ function App() {
              
             if (err.data) {
   
-              if (err.data.message === 'execution reverted: Salemint must be active to buy Tokens') {
+              if (err.data.message === 'execution reverted: Sale must be active to buy Tokens') {
                 mensajeError =  'La venta no está habilitada';
-              } else if(err.data.message === 'execution reverted: value sent needs to be atleast sale price'){
+              }  else if(err.data.message === 'execution reverted: value sent needs to be atleast sale price'){
                 mensajeError =  'Debe de pagar como mínimo el precio estipulado';
+              } else  if(err.data.message === 'execution reverted: There are no tokens to buy'){
+                mensajeError =  'Lo sentimos. Ya no hay mas NFTs a la venta. Informese en el canal de Telegram';
               } else {
                 console.log('error: ',mensajeError);
               }
             }
-        
+  
             Swal.fire({
               title: 'Ooops!',
               text: `${mensajeError}`,
