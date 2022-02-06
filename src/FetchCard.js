@@ -15,7 +15,7 @@ const FetchCard = (props) => { // @props: La id del NFT
         img: 'image',
         video: 'video',
       });
-      const nftContract = "0x21947a01C76542656EC895205E9f22FeEee2B467"; // proyecto bnbmarketplace
+      const nftContract = "0xEC2b1F41E90590cfc44c090DFdeed9DCb55eE000"; // proyecto bnbmarketplace
       // funcion para capturar la URI de un NFT
       async function fetchToken(idToken)  {
 

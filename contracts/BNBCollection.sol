@@ -17,7 +17,6 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-// 0xFd1aF1fe38d7Fe5e29497313cE8c6be6343CD17c in testnet
 
 contract BNBCollection is ERC721Enumerable, Ownable  
 {   
@@ -29,7 +28,7 @@ contract BNBCollection is ERC721Enumerable, Ownable
     uint256 public alreadySold;
     uint256 public onSale;
     bool public saleIsActive;
-     uint256 public tokenPrice = 100000000000000000; //0.1 BNB
+     uint256 public tokenPrice = 300000000000000000; //0.3 BNB
 
     
       /**

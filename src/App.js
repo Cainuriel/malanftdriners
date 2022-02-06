@@ -13,10 +13,10 @@ import FetchCard from './FetchCard';
 function App() {
  
   const BINANCETESTNET = 'bnbt';
-  const nftContract = "0x21947a01C76542656EC895205E9f22FeEee2B467"; // bnbmarketplace
+  const nftContract = "0xEC2b1F41E90590cfc44c090DFdeed9DCb55eE000"; // bnbmarketplace
   const [balance, setBalance] = useState([]);
   const [network, setNetwork] = useState('no-net');
-  const BNBPRICE ='100000000000000000';
+  const BNBPRICE ='300000000000000000';
 
  // parallax effect
   const [offSetY, setOffSetY] = useState(0);
@@ -143,17 +143,21 @@ function App() {
         console.log('contract user balance', contractUserBalance);
           // comprobamos si el usuario tiene avatares.
           if(contractUserBalance.length > 0) {
-            document.querySelector('#tokens').innerHTML ='Precio: 0.3 BNBs';
+            document.querySelector('#tokens').innerHTML ='Precio: 0.3 BNB';
             let newArray = contractUserBalance;
             setBalance(newArray);
             
               }    else {
-                document.querySelector('#tokens').innerHTML ='Precio: 0.3 BNBs';
+                document.querySelector('#tokens').innerHTML ='Precio: 0.3 BNB';
 
               }
 
         } catch (err) {
           let mensajeError = err.message;
+          if (err.message === 'call revert exception (method="tokensOfOwner(address)", errorArgs=null, errorName=null, errorSignature=null, reason=null, code=CALL_EXCEPTION, version=abi/5.5.0)') {
+            mensajeError =  'No ha cambiado a la red adecuada. Cambie de red y vuelva a recargar la página.';
+          } 
+          
           Swal.fire({
             title: 'Ooops!',
             text: `${mensajeError}`,
@@ -274,7 +278,6 @@ function App() {
           <div className="col-lg-4 text-center text-lg-start">
             <button id="btn-firma"  onClick={() => init()} className="w-100 btn btn-lg btn-danger mb-4" type="button">Conectar Metamask</button>
             <button id="faucet"  onClick={() => faucet()} className="w-100 btn btn-lg btn-primary" type="button">Faucet de Binance</button>
-
             <button id="formBuy" onClick={() => buytokens()} className="w-100 btn btn-lg btn-success my-4 d-none" type="button">Comprar NFTs</button>
           </div>
         </div>
