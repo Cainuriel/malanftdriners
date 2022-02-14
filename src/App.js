@@ -89,7 +89,7 @@ function App() {
     let networkData = [{
             chainId: "0x61",
             chainName: "BSCTESTNET",
-            rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
+            rpcUrls: ["https://data-seed-prebsc-1-s1.binance.org:8545/"],
             nativeCurrency: {
               name: "BINANCE COIN",
               symbol: "BNB",
