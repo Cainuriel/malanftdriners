@@ -5,7 +5,6 @@ import Swal from 'sweetalert2';
 import VideoPlayer from "react-background-video-player";
 import { ethers } from 'ethers';
 import NFT from './artifacts/contracts/BNBCollection.sol/BNBCollection.json';
-//import Presale from './artifacts/contracts/Presale.sol/Presale.json';
 import FetchCard from './FetchCard';
 
 
@@ -53,7 +52,7 @@ function App() {
         
       },[]);
 
-  // solo si hay cambios de red se activa este useEffect
+  // control de cambio de red
   useEffect(function () {
 
       // comprueba si se dispone la red adecuada.
@@ -74,13 +73,8 @@ function App() {
               addNetwork();
             }
           })
-        } else {
-
-        console.log('ok network ', network );
-      }
-        
-        console.log('Control de network ', network );
-
+        }
+      
 },[network]);
 
   // funcion que cambia o instala la red de pruebas de BSC
@@ -111,7 +105,7 @@ function App() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     // capturamos la red
     const network = await provider.getNetwork();
-    console.log('network', network.name);
+    //console.log('network', network.name);
     setNetwork(network.name);
   }
 
@@ -120,7 +114,7 @@ function App() {
             // captura la cuenta del usuario
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             let accountConnection = accounts[0];
-            console.log('esta conectado',accountConnection);
+            //console.log('esta conectado',accountConnection);
             let subint = accountConnection.substr(0,4);
             let subfinal = accountConnection.substr(-4,4);
             document.querySelector('#intro').innerHTML ='Conectado con la cuenta: ' + subint + '...' + subfinal;
@@ -129,8 +123,6 @@ function App() {
             element.classList.remove("d-none");
                 
   }
-
-
      // comprobacion de NFTs
   async function checkingNFTs(account) { 
 
@@ -140,7 +132,7 @@ function App() {
 
      try {
        const contractUserBalance = await contract.tokensOfOwner(account);
-        console.log('contract user balance', contractUserBalance);
+        //console.log('contract user balance', contractUserBalance);
           // comprobamos si el usuario tiene avatares.
           if(contractUserBalance.length > 0) {
             document.querySelector('#tokens').innerHTML ='Precio: 0.3 BNB';
@@ -164,7 +156,7 @@ function App() {
             icon: 'error',
             confirmButtonText: 'Cerrar'
           })
-          console.log("Error: ", err)
+          //console.log("Error: ", err)
         }
 
   }
@@ -200,7 +192,7 @@ function App() {
             // event capture
             contract.on("TokenPurchase", (a, b, c, d) => {
               let amountBNB = ethers.utils.formatEther(c);
-              console.log(`Comprador: ${b} precio: ${amountBNB} idtoken: ${d}`);
+             // console.log(`Comprador: ${b} precio: ${amountBNB} idtoken: ${d}`);
               });
 
             Swal.fire({
@@ -215,7 +207,7 @@ function App() {
             });
             
             const Ok = await transaction.wait();
-            console.log(`hash: ${transaction.hash}`);
+            //console.log(`hash: ${transaction.hash}`);
 
                   if(Ok) {
                     Swal.fire({

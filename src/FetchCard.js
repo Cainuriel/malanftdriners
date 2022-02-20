@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 import NFT from './artifacts/contracts/BNBCollection.sol/BNBCollection.json';
 import getToken from './helpers/getToken';
 
-const FetchCard = (props) => { // @props: La id del NFT
+const FetchCard = (props) => { 
 
     const [object, setObject] = useState({
         name: 'name',
@@ -23,12 +23,9 @@ const FetchCard = (props) => { // @props: La id del NFT
         const signer = provider.getSigner();
         const contract = new ethers.Contract(nftContract, NFT.abi, signer);
 
-        //console.log('idtoken ', idToken._hex);
-
           try {
 
             const tokenUri = await contract.tokenURI(idToken);
-            console.log('que pasa con el tokenuri', tokenUri);
              updateToken(`https://ipfs.infura.io/ipfs/${tokenUri}?clear`);
 
           } catch (err) {
@@ -44,12 +41,11 @@ const FetchCard = (props) => { // @props: La id del NFT
           
    
   }
-      // funcion que crea el objeto del token
+
     const updateToken = async (url) => {
-       await getToken(url) // funcion que hace el fetch
+       await getToken(url) 
             .then(
                 (newToken) => {
-                  console.log('este es el metadata del token', newToken);
                     setObject(
                         {
                           name: newToken.properties.name.description,
@@ -63,9 +59,7 @@ const FetchCard = (props) => { // @props: La id del NFT
             )
     }
 
-
     useEffect(() => {
-      console.log('props ', props.idToken);
         fetchToken(props.idToken);
     }, []);
 

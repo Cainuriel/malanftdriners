@@ -14,13 +14,12 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const FishervsPirate = await hre.ethers.getContractFactory("FishervsPirate");
-  const fishervsPirate = await FishervsPirate.deploy("FishervsPirate", "FvP", "http://localhost:3000/NFTs/NFTs/"); 
-  
-// 0x06f7A010CCF8D8634EF2Ed40a86882C31e8903c7 deploy in testnet. 
-  await fishervsPirate.deployed();
+  const BNBCollection = await hre.ethers.getContractFactory("BNBCollection");
+  const bnbCollection = await BNBCollection.deploy(); 
 
-  console.log("FishervsPirate deployed to:", fishervsPirate.address);
+  await bnbCollection.deployed();
+
+  console.log("BNBCollection deployed to:", bnbCollection.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
@@ -31,10 +30,3 @@ main()
     console.error(error);
     process.exit(1);
   });
-
-// 0x856044C3a17099eF5Af78A439d047a1B5c1bbeA2 deploy in testnet with Pirates
-// 0x8b8Ca2664deB52d8528a0514C2AE4D6D336C9bfB deploy in mainnet with Pirates
-
-
-//local test
-// 0x7C6DeAdde7ABc337F7E5272d1CdF1ce04E0A3603
