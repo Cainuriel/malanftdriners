@@ -86,7 +86,7 @@ function App() {
             rpcUrls: ["https://data-seed-prebsc-1-s1.binance.org:8545/"],
             nativeCurrency: {
               name: "BINANCE COIN",
-              symbol: "BNB",
+              symbol: "TBNB",
               decimals: 18,
             },
             blockExplorerUrls: ["https://testnet.bscscan.com/"],
